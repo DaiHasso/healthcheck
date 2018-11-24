@@ -15,18 +15,19 @@ func main() {
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{
 		InsecureSkipVerify: true,
 	}
-	port, _ := os.LookupEnv(httpsEnvVar)
+	port, _ := os.LookupEnv(portEnvVar)
 	if len(port) > 0 {
 		port = fmt.Sprintf(":%s", port)
 	}
 	httpsEnv, found := os.LookupEnv(httpsEnvVar)
 	https := ""
-	if found && len(httpsEnv) != 0 && strings.ToUpper(httpsEnv)[0] == 't' {
+	if found && len(httpsEnv) != 0 && strings.ToUpper(httpsEnv)[0] == 'T' {
 		https = "s"
 	}
-	resp, err := http.Get(fmt.Sprintf(
+	finalUrl := fmt.Sprintf(
 		"http%s://127.0.0.1%s/health", https, port,
-	))
+	)
+	resp, err := http.Get(finalUrl)
 	if err != nil {
 		fmt.Println("Error while connecting:", err)
 		os.Exit(1)
