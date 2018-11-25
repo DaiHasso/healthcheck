@@ -38,7 +38,7 @@ func main() {
 	}
 
 	bytes, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(bytes))
+	fmt.Printf("%s", string(bytes))
 
 	os.Exit(0)
 }
