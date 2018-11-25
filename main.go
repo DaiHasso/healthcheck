@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -35,6 +36,8 @@ func main() {
 	if resp.StatusCode != 200 {
 		os.Exit(1)
 	}
+
+	fmt.Println(ioutil.ReadAll(resp.Body))
 
 	os.Exit(0)
 }
